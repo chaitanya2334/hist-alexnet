@@ -1,25 +1,15 @@
 # simple implementation of CAM in PyTorch for the networks such as ResNet, DenseNet, SqueezeNet, Inception
-import gc
-import glob
-import io
-import requests
-import torch
-from PIL import Image
-from pympler import muppy
-from torch import Tensor
-from torchvision import models, transforms
+import os
+from pathlib import Path
+
+import cv2
+import numpy as np
 from torch.autograd import Variable
 from torch.nn import functional as F
-import numpy as np
-import cv2
-import os
-from pympler.tracker import SummaryTracker
+from torchvision import transforms
 from tqdm import tqdm
 
-from dataset.tupac_dataset import TUPACDataset
-from model.alexnet_mitoses import alexnet
-from utils import abs_path, argmax, prob
-from pathlib import Path
+from utils import prob
 
 
 class CAM():

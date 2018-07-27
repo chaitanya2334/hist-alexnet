@@ -1,16 +1,14 @@
 import glob
 import os
-from collections import defaultdict, namedtuple
+from collections import namedtuple
 from random import shuffle
 
 import cv2
-import itertools
+import numpy as np
 from torch.utils import data
 from tqdm import tqdm
-import csv_utils
-import numpy as np
 
-from preprocessing import tiler
+import csv_utils
 from preprocessing.normal_staining import normalize_staining
 # from preprocessing.tiler import rotate, tile, vert_reflect
 from utils import fit_image

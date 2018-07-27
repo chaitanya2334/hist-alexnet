@@ -1,22 +1,22 @@
+import os
 import shutil
 import sys
+
+import numpy as np
 import torch
 from torch.autograd import Variable
 from torch.utils.data import DataLoader
-from torch.utils.data.sampler import WeightedRandomSampler
 from torchvision import transforms
-
-from dataset.tcga_dataset import TCGADataset
-from model.alexnet import alexnet
 from torchvision.transforms import Compose
 from tqdm import tqdm
-from model.utils import to_scalar
+
+import preprocessing.normal_staining as ns
+from dataset.tcga_dataset import TCGADataset
+from models.alexnet import alexnet
+from models.utils import to_scalar
 from postprocessing.evaluator import Evaluator
 from samplers.fast_wr_sampler import FastWeightedRandomSampler
 from utils import abs_path, argmax
-import numpy as np
-import preprocessing.normal_staining as ns
-import os
 
 
 def train_a_epoch(name, data, model, optimizer, criterion, res_file, lr, batch_size, label2id, en):

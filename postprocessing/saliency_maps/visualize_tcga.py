@@ -3,7 +3,7 @@ from torch.utils.data import DataLoader
 from torchvision.transforms import Compose, transforms
 
 from dataset.tcga_dataset import TCGADataset
-from model.alexnet import alexnet
+from models.alexnet import alexnet
 from postprocessing.saliency_maps.cam import CAM
 from utils import abs_path
 

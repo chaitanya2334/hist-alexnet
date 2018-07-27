@@ -1,21 +1,15 @@
-import sys
 import torch
 from torch.autograd import Variable
 from torch.utils.data import DataLoader
 from torchvision import transforms
 
 from dataset.tupac_dataset import TUPACDataset
-from model.alexnet import alexnet
 from torchvision.transforms import Compose
 from tqdm import tqdm
 
-from dataset.mitosis_dataset import MitosisDataset
-from model.inception3 import inception_v3, InceptionAux
-from model.utils import to_scalar
 from postprocessing.evaluator import Evaluator
 from utils import abs_path, argmax
 import numpy as np
-import os
 
 
 def test_a_epoch(name, data, model, result_file, label2id):

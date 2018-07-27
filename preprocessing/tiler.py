@@ -194,7 +194,7 @@ class Tiler:
 
 
 def main():
-    root = "/fs/scratch/osu1522/TUPAC/mitoses"
+    root = "TUPAC/mitoses"
     srcdir = "train"
     destdir = "train_tiled"
     label_dir = "labels"

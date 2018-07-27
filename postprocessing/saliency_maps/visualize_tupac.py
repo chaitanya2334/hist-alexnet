@@ -10,7 +10,7 @@ from torchvision.transforms import Compose, transforms
 from tqdm import tqdm
 
 from dataset.tupac_dataset import TUPACDataset
-from model.alexnet_mitoses import alexnet
+from models.alexnet import alexnet
 from postprocessing.saliency_maps.cam import CAM
 from utils import abs_path, argmax
 import numpy as np

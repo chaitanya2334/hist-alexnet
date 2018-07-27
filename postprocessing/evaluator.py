@@ -1,9 +1,8 @@
 import os
-import time
-import operator
-import numpy as np
 import sys
+import time
 
+import numpy as np
 from sklearn.metrics import classification_report, precision_recall_fscore_support, accuracy_score, confusion_matrix
 
 

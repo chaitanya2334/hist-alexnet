@@ -1,19 +1,16 @@
 import glob
 import os
 from collections import defaultdict, namedtuple, Counter
-from random import shuffle, sample
-from sys import stdout, stderr
+from random import sample
+from sys import stderr
 
 import cv2
-import itertools
-
 import torch
 from numpy.linalg import LinAlgError
 from torch.utils import data
 from tqdm import tqdm
-import csv_utils
-import numpy as np
 
+import csv_utils
 from postprocessing.visualizers.draw_roi import TileVisualizer
 
 Sample = namedtuple("Sample", ["image", "label", "img_path"])

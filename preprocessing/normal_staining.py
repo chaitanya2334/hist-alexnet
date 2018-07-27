@@ -4,7 +4,6 @@ import glob
 
 import cv2
 import numpy as np
-from numpy.linalg import LinAlgError
 from tqdm import tqdm
 
 

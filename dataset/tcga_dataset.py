@@ -1,13 +1,11 @@
 import glob
 import math
 import os
-from itertools import compress, chain
-
-import torch
 from collections import namedtuple, defaultdict, Counter
-from random import shuffle
+from itertools import compress
 
 import cv2
+import torch
 from Cython.Utils import OrderedSet
 from torch.autograd import Variable
 from torch.utils import data
@@ -15,10 +13,10 @@ from torch.utils.data import DataLoader
 from torchvision import transforms
 from torchvision.transforms import Compose
 from tqdm import tqdm
+
 import csv_utils
-from model.alexnet_mitoses import alexnet
-from preprocessing.normal_staining import normalize_staining
-from utils import argmax, prob
+from models.alexnet import alexnet
+from utils import prob
 
 Sample = namedtuple('Sample', ['image', 'label', "wsid", "x", "y"])
 
@@ -144,7 +142,6 @@ class TCGADataset(object):
             n = math.ceil(len(top_n[k]) * (per / 100))
             top_n[k] = sorted(top_n[k], reverse=True, key=lambda tup: tup[1])[:n]
             top_n[k] = list(zip(*top_n[k]))[0]
-
 
         t_preds = [True if i in top_n[wsid] else False for i, (wsid, p) in enumerate(zip(t_wsids, t_probs))]
 
