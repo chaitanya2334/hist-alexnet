@@ -1,0 +1,98 @@
+# #########BASE SETTINGS ###########
+
+# input directory containing the tile directory. 
+INPUT_DIR : &input_dir "TCGA/"
+
+# name used to describe the current config (used to save results, checkpoints, etc under this directory)
+META_NAME : &meta_name "comp_stage"
+
+# directory containing the whole slide images
+WSI_DIR : "subset_wsi"
+
+IMG_DIR : !join_path [*input_dir, 20x_subset_tiled]
+# Path to save training images highlighting the mitotic regions.
+VIS_DIR : !join_path [*input_dir, *meta_name, train_vis ]
+# Path to save test images highlighting the mitotic regions.
+TEST_VIS_DIR : !join_path [*input_dir, *meta_name, test_vis]
+
+# path to label.csv
+LABEL_FILE : !join_path [*input_dir, labels.csv]
+
+# path to the mitosis model to be used for filtering tiles.
+MITOSES_MODEL_FILE: "results/best_mitosis/save.m"
+
+# max tile dimensions allowed
+MAX_IMG_SIZE : (224, 224)
+
+TILE_SIZE : 224
+
+# train:dev:test split in percentages.
+SPLIT : [60, 20, 20]
+
+# to enable pretraining of the alexnet model
+PRETRAIN : True
+
+# to enable balancing of the train set. The balancing is done to ensure equal number of tiles for every label. 
+# This could mean sampling all tiles from the least frequent label, and randomly sampling tiles from 
+# the more frequent labels.
+BALANCE_TRAIN : True
+
+LEARNING_RATE : 0.03
+
+# L2 regularization used to prevent overfitting.
+L2_REG : 0.0003
+
+# max number of epochs that was allowed for the model to be trained.
+MAX_EPOCH : 400
+
+# to enable randomizing train set every epoch.
+RANDOMIZE_TRAIN : True
+
+MEAN : [0.485, 0.456, 0.406]
+
+STD : [0.229, 0.224, 0.225]
+
+# early stopping if the network does not improve after these number of epochs
+TRAIN_TILL_EPOCH : 40
+
+# multiprocessing the image loading and performing minor image preprocessing
+NUM_WORKERS : 28
+
+# number of mini-batches used.
+BATCH_SIZE : 64
+
+# root dir to store the results
+RES_DIR : &res_dir results/tcga/
+
+# path to various results generated
+TEST_RES_FILE : !join_path [*res_dir, *meta_name, test_results.txt]
+
+DEV_RES_FILE : !join_path [*res_dir, *meta_name, dev_results.txt]
+
+TRAIN_RES_FILE : !join_path [*res_dir, *meta_name, train_results.txt]
+
+ULTI_RES_FILE : !join_path [*res_dir, *meta_name, ulti_results.txt]
+
+MODEL_SAVE_FILE : !join_path [*res_dir, *meta_name, save.m]
+
+CHECKPOINT_FILE : !join_path [*res_dir, *meta_name, checkpoint.dict]
+
+# #######SPECIFIC SETTINGS#########
+
+# name of the class label. Used to read the label csv file having this as one of the columns containing the class label.
+CLASS_TYPE : AJCC_Stage
+
+# can be used to combined multiple labels in the ground truth, to TARGET_LABELS. 
+PURE_LABELS : { 
+                'Stage I': 0, 'Stage IA': 0, 'Stage IB': 0,
+                'Stage II': 1, 'Stage IIA': 1, 'Stage IIB': 1,
+                'Stage III': 2, 'Stage IIIA': 2, 'Stage IIIB': 2, 'Stage IIIC': 2,
+                'Stage IV': 3 }
+
+# the final set of labels. Be sure to align the index used in PURE_LABELS to match the label it will refer to.
+TARGET_LABELS : ['Stage I', 'Stage II', 'Stage III', 'Stage IV']
+
+# number of labels to train for.
+NUM_LABELS : 4
+
+MITOSES_FILTER_PERCENT : 25 # keep top 25 percent
